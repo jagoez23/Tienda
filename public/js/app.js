@@ -5540,6 +5540,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+var base_path = "/img/tienda";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5643,7 +5644,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var res, _res;
+        var formDataUpdate, res, formData, _res;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
@@ -5652,47 +5653,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 0;
 
                 if (!_this3.update) {
-                  _context3.next = 7;
+                  _context3.next = 15;
                   break;
                 }
 
-                _context3.next = 4;
-                return axios.put('api/product/' + _this3.id, _this3.product);
+                formDataUpdate = new FormData();
+                formDataUpdate.append('id', _this3.id);
+                formDataUpdate.append('name', _this3.product.name);
+                formDataUpdate.append('description', _this3.product.description);
+                formDataUpdate.append('price', _this3.product.price);
+                formDataUpdate.append('image', _this3.product.image);
+                formDataUpdate.append('status_product', _this3.product.status_product);
+                console.log(formDataUpdate);
+                _context3.next = 12;
+                return axios.put('api/product/' + _this3.id, formDataUpdate, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                });
 
-              case 4:
+              case 12:
                 res = _context3.sent;
-                _context3.next = 10;
+                _context3.next = 24;
                 break;
 
-              case 7:
-                _context3.next = 9;
-                return axios.post('api/product/', _this3.product);
+              case 15:
+                formData = new FormData();
+                formData.append('name', _this3.product.name);
+                formData.append('description', _this3.product.description);
+                formData.append('price', _this3.product.price);
+                formData.append('image', _this3.product.image);
+                formData.append('status_product', _this3.product.status_product);
+                _context3.next = 23;
+                return axios.post('api/product/', formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                });
 
-              case 9:
+              case 23:
                 _res = _context3.sent;
 
-              case 10:
+              case 24:
                 _this3.closeModal();
 
                 _this3.list();
 
-                _context3.next = 17;
+                _context3.next = 31;
                 break;
 
-              case 14:
-                _context3.prev = 14;
+              case 28:
+                _context3.prev = 28;
                 _context3.t0 = _context3["catch"](0);
 
                 if (_context3.t0.response.data) {
                   _this3.errores = _context3.t0.response.data.errors;
                 }
 
-              case 17:
+              case 31:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 14]]);
+        }, _callee3, null, [[0, 28]]);
       }))();
     },
     openModal: function openModal() {
@@ -5705,7 +5728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.product.name = data.name;
         this.product.description = data.description;
         this.product.price = data.price;
-        this.product.image = data.image;
+        this.product.image = base_path + "/" + data.id + "/" + data.image;
         this.product.status_product = data.status_product;
       } else {
         this.id = 0;
@@ -30282,7 +30305,7 @@ var render = function () {
                     attrs: {
                       width: "200",
                       height: "200",
-                      src: _vm.image,
+                      src: _vm.product.image,
                       alt: "Foto del producto",
                     },
                   }),
