@@ -44,7 +44,7 @@
                     </div>
 
                     <figure>
-                        <img width="200" height="200" :src="image" alt="Foto del producto">
+                        <img width="200" height="200" :src="product.image" alt="Foto del producto">
                     </figure>
 
                     
@@ -121,6 +121,7 @@
 </template>
 
 <script>
+    var base_path = "/img/tienda";
      export default {
       data() {
             return {
@@ -174,9 +175,33 @@
           async save() { 
               try {
                   if(this.update){
-                   const res = await axios.put('api/product/' +this.id, this.product);
+                    let formDataUpdate = new FormData;
+                    formDataUpdate.append('id', this.id);
+                    formDataUpdate.append('name', this.product.name);
+                    formDataUpdate.append('description', this.product.description);
+                    formDataUpdate.append('price', this.product.price);
+                    formDataUpdate.append('image', this.product.image);
+                    formDataUpdate.append('status_product', this.product.status_product);
+
+                    console.log(formDataUpdate);
+                    const res = await axios.put('api/product/' +this.id, formDataUpdate, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                   });
                 }else{
-                   const res = await axios.post('api/product/', this.product);
+                    let formData = new FormData;
+                    formData.append('name', this.product.name);
+                    formData.append('description', this.product.description);
+                    formData.append('price', this.product.price);
+                    formData.append('image', this.product.image);
+                    formData.append('status_product', this.product.status_product);
+
+                    const res = await axios.post('api/product/', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                   });
                 }
                 this.closeModal();
                 this.list();     
@@ -190,12 +215,13 @@
             openModal(data={}){
               this.modal=1;
               if(this.update) {
+                
                  this.id = data.id;
                  this.titleModal="Modificar Producto";
                  this.product.name = data.name;
                  this.product.description = data.description;
                  this.product.price = data.price;
-                 this.product.image = data.image;
+                 this.product.image = base_path+"/"+data.id+"/"+data.image;
                  this.product.status_product = data.status_product;  
                 }else{
                  this.id = 0;
