@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\SearchController;
+
 
 /* Admin routes */
 Route::prefix('admin')
@@ -15,6 +18,9 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
+
+Route::get('/buscador', [App\Http\Controllers\SearchController::class, 'buscador'])->name('buscador');
 
 
 

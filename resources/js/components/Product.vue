@@ -175,16 +175,16 @@
           async save() { 
               try {
                   if(this.update){
-                    let formDataUpdate = new FormData;
-                    formDataUpdate.append('id', this.id);
-                    formDataUpdate.append('name', this.product.name);
-                    formDataUpdate.append('description', this.product.description);
-                    formDataUpdate.append('price', this.product.price);
-                    formDataUpdate.append('image', this.product.image);
-                    formDataUpdate.append('status_product', this.product.status_product);
+                    let formData = new FormData;
+                    formData.append('id', this.id);
+                    formData.append('name', this.product.name);
+                    formData.append('description', this.product.description);
+                    formData.append('price', this.product.price);
+                    formData.append('image', this.product.image);
+                    formData.append('status_product', this.product.status_product);
 
-                    console.log(formDataUpdate);
-                    const res = await axios.put('api/product/' +this.id, formDataUpdate, {
+                    console.log(formData);
+                    const res = await axios.put('api/product/' +this.id, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -215,13 +215,12 @@
             openModal(data={}){
               this.modal=1;
               if(this.update) {
-                
                  this.id = data.id;
                  this.titleModal="Modificar Producto";
                  this.product.name = data.name;
                  this.product.description = data.description;
                  this.product.price = data.price;
-                 this.product.image = base_path+"/"+data.id+"/"+data.image;
+                 this.product.image = base_path + "/" + data.id + "/" + data.image;
                  this.product.status_product = data.status_product;  
                 }else{
                  this.id = 0;
@@ -270,8 +269,7 @@
                 image() {
                     return this.imagenMiniatura;
                 }
-            }
-        
+            }    
      };    
 </script>
 

@@ -24,7 +24,6 @@ class ProductController extends Controller
     
     public function store(Request $request)
     {
-        
             $product = new Product;
             $IdCreado = $product-> create($request->all())->id;
             /* RECEPCION IMAGEN */
