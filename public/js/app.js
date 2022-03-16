@@ -5644,7 +5644,7 @@ var base_path = "/img/tienda";
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var formDataUpdate, res, formData, _res;
+        var formData, res, _formData, _res;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
@@ -5657,16 +5657,16 @@ var base_path = "/img/tienda";
                   break;
                 }
 
-                formDataUpdate = new FormData();
-                formDataUpdate.append('id', _this3.id);
-                formDataUpdate.append('name', _this3.product.name);
-                formDataUpdate.append('description', _this3.product.description);
-                formDataUpdate.append('price', _this3.product.price);
-                formDataUpdate.append('image', _this3.product.image);
-                formDataUpdate.append('status_product', _this3.product.status_product);
-                console.log(formDataUpdate);
+                formData = new FormData();
+                formData.append('id', _this3.id);
+                formData.append('name', _this3.product.name);
+                formData.append('description', _this3.product.description);
+                formData.append('price', _this3.product.price);
+                formData.append('image', _this3.product.image);
+                formData.append('status_product', _this3.product.status_product);
+                console.log(formData);
                 _context3.next = 12;
-                return axios.put('api/product/' + _this3.id, formDataUpdate, {
+                return axios.put('api/product/' + _this3.id, formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
@@ -5678,14 +5678,20 @@ var base_path = "/img/tienda";
                 break;
 
               case 15:
-                formData = new FormData();
-                formData.append('name', _this3.product.name);
-                formData.append('description', _this3.product.description);
-                formData.append('price', _this3.product.price);
-                formData.append('image', _this3.product.image);
-                formData.append('status_product', _this3.product.status_product);
+                _formData = new FormData();
+
+                _formData.append('name', _this3.product.name);
+
+                _formData.append('description', _this3.product.description);
+
+                _formData.append('price', _this3.product.price);
+
+                _formData.append('image', _this3.product.image);
+
+                _formData.append('status_product', _this3.product.status_product);
+
                 _context3.next = 23;
-                return axios.post('api/product/', formData, {
+                return axios.post('api/product/', _formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
