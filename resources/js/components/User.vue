@@ -183,7 +183,7 @@
         };
 </script>
 
-<style >
+<style>
     .mostrar {
   display: list-item;
   opacity: 1;
