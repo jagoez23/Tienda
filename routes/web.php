@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\MenuController;
 
 
 /* Admin routes */
@@ -18,7 +19,13 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
 Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
+Route::post('/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
+
+
+
 
 Route::get('/buscador', [App\Http\Controllers\SearchController::class, 'buscador'])->name('buscador');
 

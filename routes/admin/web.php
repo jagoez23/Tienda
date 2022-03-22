@@ -10,3 +10,7 @@ Route::get('/',[AdminController::class, 'index'])
 ->name('admin');
 
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
+
+Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.index');
+Route::get('/product', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('product.index');
+ 

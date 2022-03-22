@@ -148,7 +148,7 @@
         },
         methods: {
          async list() {
-            const res = await axios.get('api/product',{params:this.pagination});
+            const res = await axios.get('/api/product',{params:this.pagination});
             this.products = res.data;
             this.listPage();
           },

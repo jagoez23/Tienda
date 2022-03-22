@@ -117,7 +117,7 @@
         },
         methods: {
             async list() {
-                const res = await axios.get('api/user',{params:this.pagination});
+                const res = await axios.get('/api/user',{params:this.pagination});
                 this.users = res.data;
                 this.listPage();
             },
