@@ -5576,7 +5576,7 @@ var base_path = "/img/tienda";
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('api/product', {
+                return axios.get('/api/product', {
                   params: _this.pagination
                 });
 
@@ -5936,7 +5936,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('api/user', {
+                return axios.get('/api/user', {
                   params: _this.pagination
                 });
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
     <div class="container" style="margin-top: 80px">
@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-7">
-                        <h4>Vitrina de Productos</h4>
+                        <h4>Productos</h4>
                     </div>
                 </div>
                 <hr>
@@ -27,17 +27,16 @@
                                 <img src="/img/tienda/{{$product->id}}/{{$product->image}}"
                                      class="card-img-top mx-auto"
                                      style="height: 150px; width: 150px;display: block;"
-                                     alt="{{ $product->image_path }}"
-                                >
+                                     alt="{{ $product->image_path }}">
                                 <div class="card-body text-center">
                                     <p>{{ $product-> name}}</p>
                                     <p>{{$product->description}}</p>
                                     <p>${{$product->price}}</p>
-
+                                    <form action="{{route('cart.store')}}"method="POST">
+                                        {{csrf_field()}}    
                                         <input type="hidden" value="{{ $product->name }}" id="description" name="name">
                                         <input type="hidden" value="{{ $product->description }}" id="description" name="description">
                                         <input type="hidden" value="{{ $product->price }}" id="price" name="price">
-                                        <input type="hidden" value="1" id="quantity" name="quantity">
                                         <div class="card-footer" style="background-color: white;">
                                               <div class="row">
                                                 <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">

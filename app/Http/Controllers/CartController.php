@@ -20,4 +20,19 @@ class CartController extends Controller
         $cartCollection = CartFacade::getContent();
         return view('cart')->with('E-COMERCE | CART')->with(['cartCollection' => $cartCollection]);
     }
+
+    public function add(Request$request){
+        CartFacade::add(array(
+            'id' => $request->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'attributes' => array(
+                'image' => $request->image,
+            )
+        ));
+        return redirect()->route('cart.index')->with('success_msg', 'Item is Added to Cart!');
+    }
+
+
 }

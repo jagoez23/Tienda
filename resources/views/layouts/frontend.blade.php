@@ -26,6 +26,7 @@
 </head>
 <body>
     <div id="app">
+        @include('partials.navbar')
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -38,19 +39,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link active" href="{{route('admin.user.index')}}">Usuarios</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link active" href="{{route('admin.product.index')}}">Productos</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link active" href="/shop">Carrito</a>
-                          </li>
 
                     </ul>
 
