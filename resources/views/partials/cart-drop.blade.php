@@ -3,7 +3,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-lg-3">
-                    <img src="/images/{{ $item->attributes->image }}"
+                    <img src="/img/tienda/"
                          style="width: 50px; height: 50px;"
                     >
                 </div>
@@ -34,13 +34,13 @@
     </li>
     <br>
     <div class="row" style="margin: 0px;">
-        <a class="btn btn-dark btn-sm btn-block" href="{{ route('cart.index') }}">
-            CART <i class="fa fa-arrow-right"></i>
+        <a class="btn btn-dark btn-sm btn-block" href="{{ route('cart') }}">
+            CARRITO <i class="fa fa-arrow-right"></i>
         </a>
         <a class="btn btn-dark btn-sm btn-block" href="">
-            CHECKOUT <i class="fa fa-arrow-right"></i>
+            PROCESAR PAGO <i class="fa fa-arrow-right"></i>
         </a>
     </div>
 @else
-    <li class="list-group-item">Your Cart is Empty</li>
+    <li class="list-group-item">Tu carrito esta vacio</li>
 @endif
