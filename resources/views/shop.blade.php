@@ -32,11 +32,12 @@
                                     <p>{{ $product-> name}}</p>
                                     <p>{{$product->description}}</p>
                                     <p>${{$product->price}}</p>
-                                    <form action="{{route('cart.store')}}"method="POST">
+                                    <form action="{{route('cart.store',$product->id)}}"method="POST">
                                         {{csrf_field()}}    
                                         <input type="hidden" value="{{ $product->name }}" id="description" name="name">
                                         <input type="hidden" value="{{ $product->description }}" id="description" name="description">
                                         <input type="hidden" value="{{ $product->price }}" id="price" name="price">
+                                        <input type="hidden" value="1" id="quantity" name="quantity">
                                         <div class="card-footer" style="background-color: white;">
                                               <div class="row">
                                                 <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">

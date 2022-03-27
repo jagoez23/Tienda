@@ -5666,7 +5666,7 @@ var base_path = "/img/tienda";
                 formData.append('status_product', _this3.product.status_product);
                 console.log(formData);
                 _context3.next = 12;
-                return axios.put('api/product/' + _this3.id, formData, {
+                return axios.put('/api/product/' + _this3.id, formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
@@ -5691,7 +5691,7 @@ var base_path = "/img/tienda";
                 _formData.append('status_product', _this3.product.status_product);
 
                 _context3.next = 23;
-                return axios.post('api/product/', _formData, {
+                return axios.post('/api/product/', _formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }

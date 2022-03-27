@@ -22,7 +22,11 @@ Route::get('/', function () {
 Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
 Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
-Route::post('/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
+Route::post('/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
+Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
+Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
+
 
 
 

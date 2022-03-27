@@ -184,7 +184,7 @@
                     formData.append('status_product', this.product.status_product);
 
                     console.log(formData);
-                    const res = await axios.put('api/product/' +this.id, formData, {
+                    const res = await axios.put('/api/product/' +this.id, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -196,8 +196,7 @@
                     formData.append('price', this.product.price);
                     formData.append('image', this.product.image);
                     formData.append('status_product', this.product.status_product);
-
-                    const res = await axios.post('api/product/', formData, {
+                    const res = await axios.post('/api/product/', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -255,7 +254,6 @@
                     formData.append('price', this.product.price);
                     formData.append('image', this.product.image);
                     formData.append('status_product', this.product.status_product);
-
                     axios.post('api/product/',formData)
                         .then(response => {
                         console.log(response.data);
