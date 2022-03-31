@@ -20,7 +20,7 @@ class CreateSessionRequest extends GetInformationRequest implements WebcheckoutR
 
     public static function url(?int $session_id): string
     {
-        return config(key: 'webcheckout.url').'/api/session';
+        return config('webcheckout.url').'/api/session';
     }
 
     public function toArray()

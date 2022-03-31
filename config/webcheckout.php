@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'login' => env(key:'WEBCHECKOUT_LOGIN', default:null),
-    'trankey' => env(key:'WEBCHECKOUT_TRANKEY', default:null),
-    'url' => env(key:'WEBCHECKOUT_URL', default:null)
+    'login' => env('WEBCHECKOUT_LOGIN'),
+    'trankey' => env('WEBCHECKOUT_TRANKEY'),
+    'url' => env('WEBCHECKOUT_URL')
 ];
