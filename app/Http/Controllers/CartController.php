@@ -32,7 +32,6 @@ class CartController extends Controller
 
     public function add(Request $request, int $id)
     {
-        /*dd($request->all(),$id);*/
         \Cart::add([
             'id' => $id,
             'name' => $request->name,
@@ -43,7 +42,7 @@ class CartController extends Controller
             'image' => $request->image,
             )
         ]);
-        return redirect()->route('cart')->with('succes_msg', 'Producto agregado correctamente');
+        return redirect()->route('cart');
     }
 
     public function update(Request $request)
@@ -57,21 +56,18 @@ class CartController extends Controller
             ],
         ]
         );
-        session()->flash('succes', 'Item Cart is Updated Successfully !');
         return redirect()->route('cart');
     }
 
     public function remove(Request $request)
     {
         \Cart::remove($request->id);
-        session()->flash('success', 'Item Cart Remove Successfully !');
         return redirect()->route('cart');
     }
 
     public function clear()
     {
         \Cart::clear();
-        session()->flash('success', 'All Item Cart Clear Successfully !');
         return redirect()->route('cart');
     }
 }

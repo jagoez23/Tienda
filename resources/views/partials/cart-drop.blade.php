@@ -3,7 +3,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-lg-3">
-                    <img src="/img/tienda/"
+                    <img src="/img/tienda/{{$item->attributes->id}}/{{$item->attributes->image}}"
                          style="width: 50px; height: 50px;"
                     >
                 </div>

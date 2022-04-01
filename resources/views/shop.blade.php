@@ -17,7 +17,7 @@
                             <form action="{{route('shop')}}" method="get" class="row g-3">
                                 <div class="form-row">
                                     <div class="col-sm-4 my-1">
-                                        <input type="text" class="form-control" name="texto" value="{{$texto}}">
+                                        <input type="text" class="form-control" placeholder="Ingrese nombre a buscar..." name="texto" value="{{$texto}}">
                                     </div>
                                     <div class="col-auto my-1">
                                         <input type="submit" class="btn btn-primary " value="Buscar">
@@ -45,7 +45,7 @@
                                     <div class="card-body text-center">
                                         <p>{{ $product-> name}}</p>
                                         <p>{{$product->description}}</p>
-                                        <p>${{$product->price}}</p>
+                                        <p>${{number_format($product->price)}}</p>
                                         <form action="{{route('cart.store',$product->id)}}"method="POST">
                                             {{csrf_field()}}    
                                             <input type="hidden" value="{{ $product->name }}" id="description" name="name">
