@@ -8,7 +8,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\MenuController;
 
-
 /* Admin routes */
 Route::prefix('admin')
     ->as('admin.')
@@ -38,7 +37,7 @@ Route::get('/buscador', [App\Http\Controllers\SearchController::class, 'buscador
 //rutas para la verificación del email
 Route::get('/home', function () {
     return view('product');
-})->middleware('auth','verified')->name('home');
+})->middleware('auth', 'verified')->name('home');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

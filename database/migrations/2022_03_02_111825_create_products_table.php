@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('price');
             $table->string('image')->nullable();
-            $table->string('path')->nullable(); 
+            $table->string('path')->nullable();
             $table->boolean('status_product')->default(true);
             $table->timestamps();
         });

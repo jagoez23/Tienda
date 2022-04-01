@@ -40,9 +40,9 @@ class LoginController extends Controller
 
     public function redirectPath(): string
     {
-    if (auth()->user()->role=="admin") {
-        return route('admin.admin');
-    }
+        if (auth()->user()->role=="admin") {
+            return route('admin.admin');
+        }
         return '/shop';
     }
 }

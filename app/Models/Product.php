@@ -14,8 +14,8 @@ class Product extends Model
         'precio',
         'estado',
         'imagen',
-        
-    ];   
+
+    ];
 }
 
 class FileUpload extends Model
@@ -24,5 +24,5 @@ class FileUpload extends Model
     protected $fillable = [
         'image',
         'path',
-    ];     
+    ];
 }
