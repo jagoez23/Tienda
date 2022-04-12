@@ -51,6 +51,7 @@
                                             <input type="hidden" value="{{ $product->name }}" id="description" name="name">
                                             <input type="hidden" value="{{ $product->description }}" id="description" name="description">
                                             <input type="hidden" value="{{ $product->price }}" id="price" name="price">
+                                            <input type="hidden" value="{{ $product->image }}" id="image" name="image">
                                             <input type="hidden" value="1" id="quantity" name="quantity">
                                             <div class="card-footer" style="background-color: white;">
                                                 <div class="row">

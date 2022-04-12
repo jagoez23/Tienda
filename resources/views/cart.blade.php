@@ -41,13 +41,13 @@
                 @foreach($cartCollection as $item)
                     <div class="row">
                         <div class="col-lg-3">
-                            <img src="/img/tienda/{{$item->attributes->id}}/{{$item->attributes->image}}" class="img-thumbnail" width="200" height="200"> 
+                            <img src="/img/tienda/{{$item->id}}/{{$item->attributes->image}}" class="img-thumbnail" width="200" height="200"> 
                         </div>
                         <div class="col-lg-5">
                             <p>
                                 <b><a href="/shop/{{ $item->attributes->slug }}">{{ $item->name }}</a></b><br>
                                 <b>Precio: </b>${{ number_format($item->price) }}<br>
-                                <b>SubTotal: </b>${{ \Cart::get ($item->id)->getPriceSum() }}<br>
+                                <b>SubTotal: </b>${{ number_format(\Cart::get ($item->id)->getPriceSum()) }}<br>
                                 {{--                                <b>With Discount: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
                             </p>
                         </div>
@@ -59,9 +59,11 @@
                                         <input type="hidden" value="{{ $item->id}}" id="id" name="id">
                                         <input type="number" class="form-control form-control-sm" value="{{ $item->quantity }}"
                                                id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
-                                        <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i></button>
+                                        <hr>       
+                                        <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i> Editar </button>
                                     </div>
                                 </form>
+                                <hr>
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" value="{{ $item->id }}" id="id" name="id">
@@ -83,11 +85,11 @@
                 <div class="col-lg-5">
                     <div class="card">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Total: </b>${{ \Cart::getTotal() }}</li>
+                            <li class="list-group-item"><b>Total: </b>${{ number_format(\Cart::getTotal()) }}</li>
                         </ul>
                     </div>
                     <br><a href="/shop" class="btn btn-dark">Seguir comprando</a>
-                    <a href="/checkout" class="btn btn-success">Procesar Pago</a>
+                    <a href="{{ route('payment.store') }}" class="btn btn-success">Procesar Pago</a>
                 </div>
             @endif
         </div>
