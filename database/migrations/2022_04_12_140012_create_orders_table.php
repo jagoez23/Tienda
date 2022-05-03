@@ -6,27 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->boolean('status_order');
+            $table->unsignedBigInteger('user_id');
+            $table->enum("status", ["APPROVED", "REJECTED", "PENDING"])->default("PENDING");
+            $table->integer('requestId')->nullable();
+            $table->string('processUrl')->nullable();
             $table->timestamps();
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+     
     public function down()
     {
         Schema::dropIfExists('orders');

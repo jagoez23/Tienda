@@ -180,7 +180,7 @@
         created() {
             this.list();
         },
-        };
+    };
 </script>
 
 <style>
