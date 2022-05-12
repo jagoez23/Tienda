@@ -35,7 +35,6 @@ class PaymentController extends Controller
             $order_details->save();   
         }
         
-        //dd(\Cart::getTotal());
         $data=[
             'payment'=>[
                 "reference"=> "1122334455",
@@ -50,9 +49,10 @@ class PaymentController extends Controller
             'returnUrl'=>route('order.show',$order->id)
         ];
         $webcheckoutService=$this->webcheckoutService->createSession($data);
-        //dd($webcheckoutService['processUrl']);
+        $order->requestId = $webcheckoutService['requestId'];
+        $order->processUrl = $webcheckoutService['processUrl'];
+        $order->save();
         return redirect($webcheckoutService['processUrl']);
     }
-
 
 }

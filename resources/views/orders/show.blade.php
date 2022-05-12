@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     
-<order></order>
+<order_detail :order_id="{{$id}}"></order_detail>
     
 </div>
 @endsection

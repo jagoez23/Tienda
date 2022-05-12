@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     
-<order_detail> </order_detail>
+<order> </order>
     
 </div>
 @endsection

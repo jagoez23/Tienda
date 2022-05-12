@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\WebcheckoutService;
 
 class OrderController extends Controller
 {
+    private WebcheckoutService $webcheckoutService;
+
+    public function __construct(WebcheckoutService $webcheckoutService)
+    {
+        $this->webcheckoutService=$webcheckoutService;
+    }
     
     public function index()
     {
@@ -20,17 +27,16 @@ class OrderController extends Controller
     }
 
    
-    public function show(int $id)
+    public function show(Order $order)
     {
-        $ventastotales=Order::join("orders_details","orders.id","=","orders_details.order_id")
-                            ->select("orders_details.created_at","orders_details.price",
-                                    "orders_details.quantity","orders.status")
-                            ->where("orders.id","=",$id)        
-                            ->get();
-                            //dd($ventastotales);
-                            return view("orders.show");
-
+        $id = $order->id;
+        $webcheckoutService=$this->webcheckoutService->getInformation($order->requestId);
+        $order->status = $webcheckoutService['status']['status'];
+        $order->save();
+        return view("orders.show", compact('id'));                       
     }
+
+    
 
   
 }

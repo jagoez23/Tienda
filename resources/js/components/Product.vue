@@ -3,6 +3,16 @@
         <h1 class="text-center">Lista de Productos</h1>
         <hr/>
 
+        <form id="mainFormProducts">
+          <a style="margin:5px" href="" class="btn btn-danger">Exportar</a>
+            <label class="btn btn-success" style="margin:5px">Seleccionar archivo
+               <input style="display:none" type="file" name="select_product_file" class="btn btn-danger">
+            </label>
+            <label class="btn btn-primary" style="margin:5px">Cargar archivo
+                <input type="submit" style="display:none" name="upload" @click.prevent="saveProducts">
+            </label>
+        </form>
+             
          <!-- Button trigger modal -->
         <button @click="update=false;  openModal();" type="button" class="btn btn-primary my-4">
         Nuevo Producto
@@ -66,7 +76,7 @@
             </div>
         </div>
         </div>
-
+        <br>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
@@ -259,6 +269,20 @@
                         console.log(response.data);
                 })
             },
+            saveProducts() {
+                var $mainFormProducts = $('#mainFormProducts')
+                var formData = new FormData(mainFormProducts)
+                axios.post('/api/product/import',formData)
+                    .then((res) => {
+                        this.$swal({
+                            title:'Success',
+                            text:'Cargado',
+                            icon:'Success',
+                            confirmButtonText:'cool'
+                        });
+                })
+
+            }
         },
         created() {
          this.list();

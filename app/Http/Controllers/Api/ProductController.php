@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\StoreProductImagesAction;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
@@ -11,6 +12,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -72,5 +75,11 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product -> delete();
+    }
+
+    public function import(Request $request)
+    {
+        $path = $request->file('select_product_file')->getRealPath();
+        Excel::import(new ProductsImport, $path);
     }
 }

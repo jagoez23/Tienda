@@ -26,8 +26,9 @@ Route::get('/dashboard', function () {
 
 Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
-Route::get('/order/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
+Route::get('/order_detail/{order}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
 Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
+Route::get('/product/import', [App\Http\Controllers\ProductController::class, 'import'])->name('import');
 
 //rutas carrito de compras
 Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');

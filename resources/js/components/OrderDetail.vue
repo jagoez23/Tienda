@@ -5,18 +5,22 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Compra</th>
                 </tr>
             </thead>
             <tbody>
-               <tr v-for="order_detail  in orders_details.data" :key="order_detail.id">
-                    <td>{{order_detail.creatad_at}}</td>
-                    <td>{{order_detail.price}}</td>
-                    <td>{{order_detail.quantity}}</td> 
-                    <td>{{order.detail.price * order_detail.quantity}}</td>  
+               <tr v-for="order_detail  in orders_details" :key="order_detail.id">
+                    <td>{{order_detail.name}}</td>
+                    <td>{{order_detail.quantity}}</td>
+                    <td>{{order_detail.price | formatNumber}}</td>
+                    <td>{{order_detail.price * order_detail.quantity | formatNumber}}</td> 
+                    <td>{{order_detail.status}}</td>
+                    <td>{{isToday(order_detail.created_at)}}</td>  
                </tr>    
             </tbody>        
         </table>
@@ -49,14 +53,28 @@
 </template>
 
 <script>
+import moment from 'moment'
+var numeral = require("numeral");
+Vue.filter("formatNumber", function (value) {
+    return numeral(value).format("$0,0");
+});
+
 export default {
+    props:{
+        order_id:{
+            required:true,
+            type: Number 
+        }
+    },
     data() {
         return {
             order_detail:{
-                fecha:"",
+                nombre:"",
                 cantidad:"",
                 precio:"",
+                estado:"",
                 total:"",
+                fecha:"",
             },
             orders_details:[],
             pagination:{
@@ -68,8 +86,9 @@ export default {
     },
     methods: {
         async list() {
-                const res = await axios.get('/api/order_detail',{params:this.pagination});
+                const res = await axios.get('/api/order_detail/'+ this.order_id,{params:this.pagination});
                 this.orders_details = res.data;
+                console.log(JSON.stringify(this.orders_details));
                 this.listPage();
         },
         listPage() {
@@ -88,6 +107,9 @@ export default {
                 }
                 this.pages = arrayN   
             },
+            isToday(date) {
+                return moment(date).format('L');
+            }
     },
     created() {
          this.list();

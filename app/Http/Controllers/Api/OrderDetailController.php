@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\OrdersDetails;
+use App\Http\Controllers\Controller;
 
 class OrderDetailController extends Controller
 {
@@ -18,7 +19,11 @@ class OrderDetailController extends Controller
 
     public function show(int $id)
     {
-        $order = OrdersDetails::find($id);
-        return $order;
+        return OrdersDetails::join("products","products.id","=","orders_details.product_id")
+                            ->join("orders","orders.id","=","orders_details.order_id")
+                            ->select("products.name","orders.status","orders_details.price",
+                                     "orders_details.quantity","orders_details.created_at")
+                            ->where("orders_details.order_id",$id)
+                            ->get(); 
     }
 }
