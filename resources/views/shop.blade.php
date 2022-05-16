@@ -10,47 +10,66 @@
                     </div>
                 </div>
                 <hr>
-                <div class="container">
-                    <div class="col-8">
-                           <div class="input-group">
-                               <input type="text" class="form-control" id="texto" placeholder=" Ingrese nombre a buscar">
-                           </div>
-                           <br>
-                           <div id="resultados"></div>
-                   </div>
+
+               <div class="container"> 
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <form action="{{route('shop')}}" method="get" class="row g-3">
+                                <div class="form-row">
+                                    <div class="col-sm-4 my-1">
+                                        <input type="text" class="form-control" placeholder="Ingrese nombre a buscar..." name="texto" value="{{$texto}}">
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <input type="submit" class="btn btn-primary " value="Buscar">
+                                    </div>  
+                                </div>
+                            </form>  
+                        </div>
+                    </div>
                 </div>
+
                   <br>  
                 <div class="row">
-                    @foreach($products as $product)
-                        <div class="col-lg-3">
-                            <div class="card" style="margin-bottom: 20px; height: auto;">
-                                <img src="/img/tienda/{{$product->id}}/{{$product->image}}"
-                                     class="card-img-top mx-auto"
-                                     style="height: 150px; width: 150px;display: block;"
-                                     alt="{{ $product->image_path }}">
-                                <div class="card-body text-center">
-                                    <p>{{ $product-> name}}</p>
-                                    <p>{{$product->description}}</p>
-                                    <p>${{$product->price}}</p>
-                                    <form action="{{route('cart.store',$product->id)}}"method="POST">
-                                        {{csrf_field()}}    
-                                        <input type="hidden" value="{{ $product->name }}" id="description" name="name">
-                                        <input type="hidden" value="{{ $product->description }}" id="description" name="description">
-                                        <input type="hidden" value="{{ $product->price }}" id="price" name="price">
-                                        <input type="hidden" value="1" id="quantity" name="quantity">
-                                        <div class="card-footer" style="background-color: white;">
-                                              <div class="row">
-                                                <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
-                                                    <i class="fa fa-shopping-cart"></i> Agregar al carrito
-                                                </button>
+                    @if(count($products)<=0)
+                            <tr>
+                                <td colspan="4"> No hay resultados</td>
+                            </tr>
+                        @else
+                        @foreach($products as $product)
+                            <div class="col-lg-3">
+                                <div class="card" style="margin-bottom: 20px; height: auto;">
+                                    <img src="/img/tienda/{{$product->id}}/{{$product->image}}"
+                                        class="card-img-top mx-auto"
+                                        style="height: 150px; width: 150px;display: block;"
+                                        alt="{{ $product->image }}">
+                                    <div class="card-body text-center">
+                                        <p>{{ $product-> name}}</p>
+                                        <p>{{$product->description}}</p>
+                                        <p>${{number_format($product->price)}}</p>
+                                        <form action="{{route('cart.store',$product->id)}}"method="POST">
+                                            {{csrf_field()}}    
+                                            <input type="hidden" value="{{ $product->name }}" id="description" name="name">
+                                            <input type="hidden" value="{{ $product->description }}" id="description" name="description">
+                                            <input type="hidden" value="{{ $product->price }}" id="price" name="price">
+                                            <input type="hidden" value="{{ $product->image }}" id="image" name="image">
+                                            <input type="hidden" value="1" id="quantity" name="quantity">
+                                            <div class="card-footer" style="background-color: white;">
+                                                <div class="row">
+                                                    <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
+                                                        <i class="fa fa-shopping-cart"></i> Agregar al carrito
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif        
                 </div>
+                 <div class="d-flex justify-content-center">
+                        {{$products->links()}}   
+                 </div>    
             </div>
         </div>
     </div>
