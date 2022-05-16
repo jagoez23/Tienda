@@ -3,6 +3,19 @@
         <h1 class="text-center">Lista de Productos</h1>
         <hr/>
 
+        <div class="form-group-row">
+          <div class="col-sm-10">
+            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".XLSX, .CSV" class="form-control">
+          </div>
+        </div>
+        <br>
+         <button v-on:click="EventSubir()" class="btn btn-primary">Subir</button>
+         <button @click="EventDescarga()" class="btn btn-primary">Generar excel</button>
+         <a type="button" href='/api/products/export'>
+             Generar excel
+        </a>
+
+        <hr/>     
          <!-- Button trigger modal -->
         <button @click="update=false;  openModal();" type="button" class="btn btn-primary my-4">
         Nuevo Producto
@@ -66,7 +79,7 @@
             </div>
         </div>
         </div>
-
+        <br>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
@@ -125,6 +138,7 @@
      export default {
       data() {
             return {
+              file:'',  
               imagenMiniatura:'',
               product:{
                  name:'',
@@ -259,6 +273,35 @@
                         console.log(response.data);
                 })
             },
+            EventSubir(){
+            let formData = new FormData();
+            formData.append('file', this.file);
+            axios.post('/api/product/import',
+                    formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(function(){
+                    console.log('SUCCESS!!');
+                })
+                .catch(function(){
+                    console.log('FAILURE!!');
+                });
+        },
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0];
+        },
+        EventDescarga() {
+            axios.get('/api/products/export')
+              .then(function(){
+                 console.log('SUCCESS!!'); 
+              })
+              .catch(function(){
+                  console.log('FAILURE!!');
+              });
+        },
+
         },
         created() {
          this.list();

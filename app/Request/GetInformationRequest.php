@@ -9,16 +9,17 @@ class GetInformationRequest implements WebcheckoutRequestContract
 {
     public function auth()
     {
+        //dd(config('webcheckout'));
         $seed = date('c');
         $nonce = Str::random(8);
-        $tranKey = base64_encode(hash('sha1', $nonce.$seed.config('webcheckout.tranKey'),true));
+        $tranKey = base64_encode(hash('sha1', $nonce.$seed.config('webcheckout.trankey'), true));
 
         return [
             'auth' => [
                 'login' => config('webcheckout.login'),
                 'tranKey' => $tranKey,
                 'nonce' => base64_encode($nonce),
-                'seed' => $seed, 
+                'seed' => $seed,
             ]
         ];
     }

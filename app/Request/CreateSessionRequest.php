@@ -2,8 +2,8 @@
 
 namespace App\Request;
 
-
 use App\Contracts\WebcheckoutRequestContract;
+use Illuminate\Http\Request;
 
 class CreateSessionRequest extends GetInformationRequest implements WebcheckoutRequestContract
 {
@@ -25,15 +25,14 @@ class CreateSessionRequest extends GetInformationRequest implements WebcheckoutR
 
     public function toArray()
     {
-        return array_merge(parent::auth(),[
+        return array_merge(parent::auth(), [
             'locale' => 'es_CO',
             'payment' => $this->payment,
             'expiration' => $this->expiration,
             'returnUrl' => $this->returnUrl,
             'ipAddress' => app(abstract:Request::class)->getClientIp(),
-            'userAgent' => substr(app(abstract:Request::class)->header('User-Agent'),0,255)
+            'userAgent' => substr(app(abstract:Request::class)->header('User-Agent'), 0, 255)
 
         ]);
     }
-    
 }

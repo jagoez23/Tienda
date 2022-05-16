@@ -4,9 +4,10 @@
         <hr/>
 
         <!-- Button trigger modal -->
-        <!--<button @click="update=false;  openModal();" type="button" class="btn btn-primary my-4">
+        <button @click="update=false;  openModal();" type="button" class="btn btn-primary my-4">
         Nuevo Usuario
-        </button> -->
+        </button>
+        
         <!-- Modal -->
         <div class="modal" :class="{mostrar:modal}">
         <div class="modal-dialog">
@@ -180,7 +181,7 @@
         created() {
             this.list();
         },
-        };
+    };
 </script>
 
 <style>
