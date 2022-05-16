@@ -5862,10 +5862,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 var base_path = "/img/tienda";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      file: '',
       imagenMiniatura: '',
       product: {
         name: '',
@@ -6099,18 +6103,27 @@ var base_path = "/img/tienda";
         console.log(response.data);
       });
     },
-    saveProducts: function saveProducts() {
-      var _this5 = this;
-
-      var $mainFormProducts = $('#mainFormProducts');
-      var formData = new FormData(mainFormProducts);
-      axios.post('/api/product/import', formData).then(function (res) {
-        _this5.$swal({
-          title: 'Success',
-          text: 'Cargado',
-          icon: 'Success',
-          confirmButtonText: 'cool'
-        });
+    EventSubir: function EventSubir() {
+      var formData = new FormData();
+      formData.append('file', this.file);
+      axios.post('/api/product/import', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function () {
+        console.log('SUCCESS!!');
+      })["catch"](function () {
+        console.log('FAILURE!!');
+      });
+    },
+    handleFileUpload: function handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+    },
+    EventDescarga: function EventDescarga() {
+      axios.get('/api/products/export').then(function () {
+        console.log('SUCCESS!!');
+      })["catch"](function () {
+        console.log('FAILURE!!');
       });
     }
   },
@@ -6145,6 +6158,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -53904,37 +53918,54 @@ var render = function () {
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
-    _c("form", { attrs: { id: "mainFormProducts" } }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-danger",
-          staticStyle: { margin: "5px" },
-          attrs: { href: "" },
-        },
-        [_vm._v("Exportar")]
-      ),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "btn btn-primary", staticStyle: { margin: "5px" } },
-        [
-          _vm._v("Cargar archivo\n            "),
-          _c("input", {
-            staticStyle: { display: "none" },
-            attrs: { type: "submit", name: "upload" },
-            on: {
-              click: function ($event) {
-                $event.preventDefault()
-                return _vm.saveProducts.apply(null, arguments)
-              },
+    _c("div", { staticClass: "form-group-row" }, [
+      _c("div", { staticClass: "col-sm-10" }, [
+        _c("input", {
+          ref: "file",
+          staticClass: "form-control",
+          attrs: { type: "file", id: "file", accept: ".XLSX, .CSV" },
+          on: {
+            change: function ($event) {
+              return _vm.handleFileUpload()
             },
-          }),
-        ]
-      ),
+          },
+        }),
+      ]),
     ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function ($event) {
+            return _vm.EventSubir()
+          },
+        },
+      },
+      [_vm._v("Subir")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        on: {
+          click: function ($event) {
+            return _vm.EventDescarga()
+          },
+        },
+      },
+      [_vm._v("Generar excel")]
+    ),
+    _vm._v(" "),
+    _c("a", { attrs: { type: "button", href: "/api/products/export" } }, [
+      _vm._v("\n         Generar excel\n    "),
+    ]),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _c(
       "button",
@@ -54214,7 +54245,7 @@ var render = function () {
     _c("br"),
     _vm._v(" "),
     _c("table", { staticClass: "table table-striped" }, [
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
@@ -54468,23 +54499,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "btn btn-success", staticStyle: { margin: "5px" } },
-      [
-        _vm._v("Seleccionar archivo\n           "),
-        _c("input", {
-          staticClass: "btn btn-danger",
-          staticStyle: { display: "none" },
-          attrs: { type: "file", name: "select_product_file" },
-        }),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "table-dark" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
@@ -54530,6 +54544,21 @@ var render = function () {
     _c("h1", { staticClass: "text-center" }, [_vm._v("Lista de Usuarios")]),
     _vm._v(" "),
     _c("hr"),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary my-4",
+        attrs: { type: "button" },
+        on: {
+          click: function ($event) {
+            _vm.update = false
+            _vm.openModal()
+          },
+        },
+      },
+      [_vm._v("\n    Nuevo Usuario\n    ")]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "modal", class: { mostrar: _vm.modal } }, [
       _c("div", { staticClass: "modal-dialog" }, [

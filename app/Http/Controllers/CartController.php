@@ -23,7 +23,7 @@ class CartController extends Controller
                     ->paginate(4);
         return view('shop', compact('products', 'texto'));
     }
-    
+
     public function cart()
     {
         $cartCollection = \Cart::getContent();

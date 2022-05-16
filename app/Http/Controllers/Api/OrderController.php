@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
@@ -16,7 +15,6 @@ class OrderController extends Controller
         $per_page = $request -> per_page;
         //dd(auth()->user());
         return Order::paginate($per_page);
-        
     }
 
     public function show(int $id)
@@ -24,5 +22,4 @@ class OrderController extends Controller
         $order = Order::find($id);
         return $order;
     }
-
 }

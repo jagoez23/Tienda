@@ -29,14 +29,15 @@ Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->na
 Route::get('/order_detail/{order}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
 Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
 Route::get('/product/import', [App\Http\Controllers\ProductController::class, 'import'])->name('import');
+Route::get('/product/export', [App\Http\Controllers\ProductController::class, 'export'])->name('export');
 
 //rutas carrito de compras
-Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
-Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
-Route::post('/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
-Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
-Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
-Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
+Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop')->middleware('role:admin');
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart')->middleware('role:admin');;
+Route::post('/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store')->middleware('role:admin');;
+Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update')->middleware('role:admin');;
+Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove')->middleware('role:admin');;
+Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear')->middleware('role:admin');;
 
 
 //rutas para la verificación del email

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-
 class UserController extends Controller
 {
     public function index()
@@ -32,7 +31,7 @@ class UserController extends Controller
         $usuario-> update($request->all());
     }
 
-    
+
     public function destroy(int $id): void
     {
         $usuario = User::find($id);

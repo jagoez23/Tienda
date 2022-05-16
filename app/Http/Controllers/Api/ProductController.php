@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\StoreProductImagesAction;
-use App\Http\Controllers\Controller;
-use App\Imports\ProductsImport;
-use Illuminate\Http\Request;
 use App\Models\Product;
-use GuzzleHttp\Handler\Proxy;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use App\Imports\UsersImport;
+use Illuminate\Http\Request;
+use GuzzleHttp\Handler\Proxy;
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use App\Actions\StoreProductImagesAction;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -79,7 +81,11 @@ class ProductController extends Controller
 
     public function import(Request $request)
     {
-        $path = $request->file('select_product_file')->getRealPath();
-        Excel::import(new ProductsImport, $path);
+        Excel::import(new ProductsImport(), $request->file('file'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductsExport(), 'product.xlsx');
     }
 }

@@ -15,28 +15,23 @@ class OrderController extends Controller
     {
         $this->webcheckoutService=$webcheckoutService;
     }
-    
+
     public function index()
     {
         return view("orders.index");
-        
     }
     public function store(Request $request)
     {
         //
     }
 
-   
+
     public function show(Order $order)
     {
         $id = $order->id;
         $webcheckoutService=$this->webcheckoutService->getInformation($order->requestId);
         $order->status = $webcheckoutService['status']['status'];
         $order->save();
-        return view("orders.show", compact('id'));                       
+        return view("orders.show", compact('id'));
     }
-
-    
-
-  
 }

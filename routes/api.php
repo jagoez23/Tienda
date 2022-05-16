@@ -10,8 +10,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/user', App\Http\Controllers\Api\UserController::class)->only('index', 'store', 'show', 'update', 'destroy');
-Route::resource('/product', App\Http\Controllers\Api\ProductController::class)->only('index', 'store', 'show', 'update', 'destroy');
+
+Route::resource('/user', App\Http\Controllers\Api\UserController::class)->only('index', 'store', 'show', 'update', 'destroy')->middleware('role:admin');
+Route::resource('/product', App\Http\Controllers\Api\ProductController::class)->only('index', 'store', 'show', 'update', 'destroy')->middleware('role:admin');
 Route::get('/order', [App\Http\Controllers\Api\OrderController::class,'index']);
 Route::get('/order_detail/{id}', [App\Http\Controllers\Api\OrderDetailController::class,'show']);
-Route::post('/product/import/',[App\Http\Controllers\Api\ProductController::class,'import']);
+Route::post('/product/import/', [App\Http\Controllers\Api\ProductController::class,'import']);
+Route::get('/products/export/', [App\Http\Controllers\Api\ProductController::class,'export']);

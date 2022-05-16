@@ -21,7 +21,7 @@ class WebcheckoutService implements WebcheckoutContract
         $getInformation = new GetInformationRequest();
         $data = $getInformation->auth();
         $url = $getInformation::url($session_id);
-        return $this->request($data,$url);
+        return $this->request($data, $url);
     }
 
     public function createSession(array $data)
@@ -29,7 +29,7 @@ class WebcheckoutService implements WebcheckoutContract
         $createSessionRequest = new CreateSessionRequest($data);
         $data = $createSessionRequest->toArray();
         $url = $createSessionRequest::url(null);
-        return $this->request($data,$url);
+        return $this->request($data, $url);
     }
 
     private function request(array $data, string $url)
