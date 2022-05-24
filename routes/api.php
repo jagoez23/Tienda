@@ -5,19 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StatusUserController;
-use App\Http\Controllers\Api\ProductApiController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//rutas apirestproduct
-Route::get('products', [App\Http\Controllers\Api\ProductApiController::class,'index']);
-Route::get('products/{id}/show', [App\Http\Controllers\Api\ProductApiController::class,'show']);
-Route::put('products/{id}/update', [App\Http\Controllers\Api\ProductApiController::class,'update']);
-//Route::post('products/{id}/update', [App\Http\Controllers\Api\ProductApiController::class,'update']);
-Route::post('products/add', [App\Http\Controllers\Api\ProductApiController::class,'store']);
-Route::delete('products/{id}/delete', [App\Http\Controllers\Api\ProductApiController::class,'destroy']);
+
 
 
 Route::resource('/user', App\Http\Controllers\Api\UserController::class)->only('index', 'store', 'show', 'update', 'destroy')->middleware('role:admin');
