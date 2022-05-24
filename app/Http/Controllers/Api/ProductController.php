@@ -72,7 +72,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function destroy(int $id): void
     {
         $product = Product::find($id);
