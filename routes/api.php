@@ -14,7 +14,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Rutas apirestuser
 Route::post('register', [App\Http\Controllers\Api\UserApiController::class,'register']);
 Route::post('login', [App\Http\Controllers\Api\UserApiController::class,'login']);
-
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('user-profile', [App\Http\Controllers\Api\UserApiController::class, 'userProfile']);
     Route::get('logout', [App\Http\Controllers\Api\UserApiController::class, 'logout']);
