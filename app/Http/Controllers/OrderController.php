@@ -20,9 +20,10 @@ class OrderController extends Controller
     {
         return view("orders.index");
     }
+    
     public function store(Request $request)
     {
-        //
+        
     }
 
 

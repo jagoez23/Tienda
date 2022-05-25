@@ -12,7 +12,6 @@ class OrderDetailController extends Controller
     public function index(Request $request)
     {
         $per_page = $request -> per_page;
-        //dd(auth()->user());
         return OrdersDetails::paginate($per_page);
     }
 

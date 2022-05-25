@@ -13,7 +13,6 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $per_page = $request -> per_page;
-        //dd(auth()->user());
         return Order::paginate($per_page);
     }
 

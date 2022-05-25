@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FormatImportController;
 
 /* Admin routes */
 Route::prefix('admin')
@@ -28,15 +29,16 @@ Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'store'])
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
 Route::get('/order_detail/{order}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
 Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
+Route::get('/format', [App\Http\Controllers\FormatImportController::class, 'index'])->name('format_import');
 
 
 //rutas carrito de compras
-Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop')->middleware('role:admin');
-Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart')->middleware('role:admin');;
-Route::post('/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store')->middleware('role:admin');;
-Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update')->middleware('role:admin');;
-Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove')->middleware('role:admin');;
-Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear')->middleware('role:admin');;
+Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
+Route::post('/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
+Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
+Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 
 
 //rutas para la verificación del email
