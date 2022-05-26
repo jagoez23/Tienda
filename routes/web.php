@@ -9,7 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\FormatImportController;
+use App\Http\Controllers\ProductImportController;
 
 /* Admin routes */
 Route::prefix('admin')
@@ -29,8 +29,10 @@ Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'store'])
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
 Route::get('/order_detail/{order}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
 Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
-Route::get('/format', [App\Http\Controllers\FormatImportController::class, 'index'])->name('format_import');
 
+
+Route::get('/import', [App\Http\Controllers\ProductImportController::class, 'show'])->name('show');
+Route::post('/import', [App\Http\Controllers\ProductImportController::class, 'store'])->name('store');
 
 //rutas carrito de compras
 Route::get('/shop', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');

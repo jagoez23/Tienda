@@ -18,11 +18,4 @@ class Product extends Model
     ];
 }
 
-/*class FileUpload extends Model
-{
-    use HasFactory;
-    protected $fillable = [
-        'image',
-        'path',
-    ];
-}*/
+
