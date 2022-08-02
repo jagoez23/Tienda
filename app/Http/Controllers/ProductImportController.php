@@ -16,15 +16,15 @@ class ProductImportController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('file');
+        //Excel::import(new ProductsImport, $file);
         $import = new ProductsImport;
         $import->import($file);
-        //Excel::import(new ProductsImport, $file);
+        //($import)->queue($file);
 
+        //dd($import->failures());
         if($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }
-
-        return back()->withStatus('Importación en proceso, enviaremos una notificación después de importar el archivo!');
-
+        return back()->withStatus('Importación exitosa');
     }
 }

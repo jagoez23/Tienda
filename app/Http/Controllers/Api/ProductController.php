@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Actions\StoreProductImagesAction;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,7 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $product = new Product();
         $IdCreado = $product-> create($request->all())->id;
@@ -53,7 +54,7 @@ class ProductController extends Controller
     }
 
 
-    public function update(Request $request, int $id): void
+    public function update(ProductRequest $request, int $id): void
     {
         $product= Product::find($id);
         $product-> update($request->all());

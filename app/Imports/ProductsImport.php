@@ -3,54 +3,49 @@
 namespace App\Imports;
 
 use App\Models\Product;
-use GuzzleHttp\Handler\Proxy;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterImport;
-use Throwable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 
 class ProductsImport implements 
     ToModel, 
-    WithHeadingRow, 
-    SkipsOnError, 
-    WithValidation, 
+    WithHeadingRow,
+    SkipsOnError,
+    WithValidation,
     SkipsOnFailure,
     WithBatchInserts,
     WithChunkReading,
-    ShouldQueue,
-    WithEvents
-    
+    ShouldQueue
+     
 {
-    use Importable, SkipsErrors, SkipsFailures, RegistersEventListeners;
+    use Importable, SkipsErrors, SkipsFailures;
 
     public function model(array $row)
     {
-        return new Product([
-           'name' => $row['name'],
-           'description' => $row['description'],
-           'price' => $row['price'],
-           'image' => $row['image'],
-           'status_product' => $row['status_product'],
-        ]);
+        
+              return new Product([
+                'name' => $row['name'],
+                'description' => $row['description'],   
+                'price' => $row['price'],
+                'image' => $row['image'],
+                'status_product' => $row['status_product']
+            ]);   
     }
 
     public function rules(): array
     {
         return [
-            'name' => ['required','string'],
-            'description' => ['required','string'],
+            'name' => ['required','string','unique:products,name'],
+            'description' => ['required'],
             'price' => ['required','int'],
             'image' => ['required'],
             'status_product' => ['required','int'],
@@ -65,5 +60,7 @@ class ProductsImport implements
     public function chunkSize(): int
     {
         return 1000;
-    }  
+    }
+    
+  
 }

@@ -120,6 +120,7 @@
 </template>
 
 <script>
+    import swal from 'sweetalert2';
     var base_path = "/img/tienda";
      export default {
       data() {
@@ -169,8 +170,22 @@
                 this.pages = arrayN   
           },
           async eliminar(id) {
-            const res = await axios.delete('api/product/'+id);
-            this.list();
+                swal.fire({
+                title: 'Estas seguro de eliminar este producto?',
+                text: "Se eliminará de forma permanente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                     axios.delete('/api/product/'+id);
+                     this.list();
+                     swal.fire('Eliminado!','El producto ha sido eliminado con éxito.','success')
+                }
+                    })
           },
           async save() { 
               try {
@@ -182,9 +197,7 @@
                     formData.append('price', this.product.price);
                     formData.append('image', this.product.image);
                     formData.append('status_product', this.product.status_product);
-
-                    console.log(formData);
-                    const res = await axios.put('/api/product/' +this.id, formData, {
+                    const res = await axios.put('/api/product/' +this.id,  formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -196,7 +209,7 @@
                     formData.append('price', this.product.price);
                     formData.append('image', this.product.image);
                     formData.append('status_product', this.product.status_product);
-                    const res = await axios.post('/api/product/', formData, {
+                    const res = await axios.post('/api/product/',  formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

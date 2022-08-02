@@ -7,6 +7,18 @@
             <div class="card">
                 <div class="card-header">Importar Excel</div>
 
+                <br>
+                <p>En esta sección usted podra importar archivos de excel a la base de datos,
+                    debe tener en cuenta las siguientes recomendaciones:
+                    <br>
+                    1. Todos los campos son requeridos y no pueden estar vacios.
+                    <br>
+                    2. En caso de que algún campo haga falta no se realizara la importación y debera
+                       revisar el archivo.
+                    <br>
+                    3. El sistema le informará que campo hace falta en el caso de que se presente algún error.     
+                </p>
+
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -28,7 +40,7 @@
                                 <th>Fila</th>
                                 <th>Atributo</th>
                                 <th>Error</th>
-                                <th></th>
+                                <th>Valor</th>
                             </tr>
                             @foreach (session()->get('failures') as $validation)
                                 <tr>

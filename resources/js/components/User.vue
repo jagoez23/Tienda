@@ -95,6 +95,7 @@
 </template>
 
 <script>
+    import swal from 'sweetalert2';
     export default {
         data() {
             return {
@@ -139,16 +140,29 @@
                 this.pages = arrayN   
             },
             async eliminar(id) {
-                const res = await axios.delete('api/user/'+id);
-                this.list();
-
-            },
+                swal.fire({
+                title: 'Estas seguro de eliminar este registro?',
+                text: "Se eliminará de forma permanente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                     axios.delete('/api/user/'+id);
+                     this.list();
+                     swal.fire('Eliminado!','El registro ha sido eliminado con éxito.','success')
+                }
+                    })
+            },           
             async save() {
               try{  
                     if(this.update){
-                    const res = await axios.put('api/user/' +this.id, this.user);
+                    const res = await axios.put('/api/user/' +this.id, this.user);
                     }else{
-                        const res = await axios.post('api/user/', this.user);
+                        const res = await axios.post('/api/user/', this.user);
                     }
                     this.closeModal();
                     this.list();

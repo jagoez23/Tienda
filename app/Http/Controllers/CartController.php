@@ -21,6 +21,7 @@ class CartController extends Controller
                     ->orWhere('description', 'LIKE', '%'.$texto.'%')
                     ->orderBy('name', 'asc')
                     ->paginate(4);
+            //dd(view('shop'));     
         return view('shop', compact('products', 'texto'));
     }
 
